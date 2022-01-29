@@ -89,11 +89,15 @@ const addCity = async (city, countries, timezones, weatherCodes) => {
     const country = countries[countryCode];
     const flag = getFlagEmoji(countryCode);
     const timezone = timezones[timezoneIndex];
-    const dateTime = new Date().toLocaleString(LOCALE, {
-        timeZone: timezone,
-        dateStyle: "short",
-        timeStyle: "short",
-    });
+    const dateTime = new Date()
+        .toLocaleString(LOCALE, {
+            timeZone: timezone,
+            dateStyle: "full",
+            timeStyle: "short",
+        })
+        .split(",");
+    const date = dateTime[0] + ", " + dateTime[1];
+    const time = " " + dateTime[2].split(" at ")[1];
 
     const weatherData = await fetch(
         WEATHER_API_URL +
@@ -146,22 +150,33 @@ const addCity = async (city, countries, timezones, weatherCodes) => {
         parent: cityDiv,
     });
     createNode({
-        tag: "span",
+        tag: "div",
         className: "flag",
         text: flag,
         parent: cityHeader,
     });
     createNode({
-        tag: "span",
+        tag: "div",
         className: "place",
         text: `${name}, ${country}`,
         parent: cityHeader,
     });
-    createNode({
-        tag: "span",
-        className: "time",
-        text: dateTime,
+    const dateTimeDiv = createNode({
+        tag: "div",
+        className: "dateTime",
         parent: cityHeader,
+    });
+    createNode({
+        tag: "div",
+        className: "time",
+        text: time,
+        parent: dateTimeDiv,
+    });
+    createNode({
+        tag: "div",
+        className: "date",
+        text: date,
+        parent: dateTimeDiv,
     });
 
     const weatherDiv = createNode({
