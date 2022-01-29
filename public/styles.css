@@ -66,11 +66,11 @@ button {
     width: 100%;
     background-color: #dfe5f0;
     border-radius: 1rem;
-    outline: 0.1rem solid #6f7278;
     font-size: 2rem;
     border-style: none;
     box-sizing: border-box;
     cursor: pointer;
+    outline: none;
     user-select: none;
 }
 
