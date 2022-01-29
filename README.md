@@ -24,7 +24,7 @@ To update the generated data:
 1. Download the [free basic database](https://simplemaps.com/data/world-cities) from simplemaps and extract `worldcities.csv` to `data`.
 1. Run `python3 scripts/build_data.py`.
 
-Data for the top 5000 cities, covering ~3.76B population should result in a < 300 KB JSON file.
+Data for the top 5000 cities covering a population of ~3.76B should result in a <300 KB [JSON file](https://github.com/ummcheng/theregionalmanager/blob/main/public/data/cities.json).
 
 ## Notes
 

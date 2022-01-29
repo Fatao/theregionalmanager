@@ -14,6 +14,7 @@ getcontext().rounding = ROUND_HALF_DOWN
 tf = TimezoneFinder(in_memory=True)
 
 cities = []
+# Save some bytes by referencing countries by ISO code and timezones by index
 countries = {}
 timezones = []
 
