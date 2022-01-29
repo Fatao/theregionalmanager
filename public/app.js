@@ -2,6 +2,17 @@ const CITIES = 5;
 const LOCALE = "en-US";
 const WEATHER_API_URL = "https://api.open-meteo.com/v1/forecast";
 
+const cities = fetch("data/cities.json").then((response) => response.json());
+const countries = fetch("data/countries.json").then((response) =>
+    response.json()
+);
+const timezones = fetch("data/timezones.json").then((response) =>
+    response.json()
+);
+const weatherCodes = fetch("data/weatherCodes.json").then((response) =>
+    response.json()
+);
+
 const getFlagEmoji = (countryCode) => {
     return String.fromCodePoint(
         ...countryCode
@@ -13,9 +24,7 @@ const getFlagEmoji = (countryCode) => {
 
 window.addEventListener("load", () => {
     const app = document.getElementById("app");
-    const h1 = document.createElement("h1");
-    h1.appendChild(document.createTextNode(""));
-    app.appendChild(h1);
+
     let p = document.createElement("p");
     p.appendChild(
         document.createTextNode(
@@ -23,6 +32,7 @@ window.addEventListener("load", () => {
         )
     );
     app.appendChild(p);
+
     p = document.createElement("p");
     p.appendChild(
         document.createTextNode(
@@ -31,21 +41,22 @@ window.addEventListener("load", () => {
     );
     app.appendChild(p);
 
-    const cities = fetch("data/cities.json").then((response) =>
-        response.json()
-    );
-    const countries = fetch("data/countries.json").then((response) =>
-        response.json()
-    );
-    const timezones = fetch("data/timezones.json").then((response) =>
-        response.json()
-    );
-    const weatherCodes = fetch("data/weatherCodes.json").then((response) =>
-        response.json()
-    );
+    let button = document.createElement("button");
+    button.appendChild(document.createTextNode(`♻️ Reload`));
+    app.appendChild(button);
+    button.onclick = loadWeather;
 
+    loadWeather();
+});
+
+const loadWeather = async () => {
     Promise.all([cities, countries, timezones, weatherCodes]).then(
         async ([cities, countries, timezones, weatherCodes]) => {
+            const element = document.getElementById("cities");
+            if (element) {
+                element.remove();
+            }
+
             const div = document.createElement("div");
             div.id = "cities";
             app.appendChild(div);
@@ -112,4 +123,4 @@ window.addEventListener("load", () => {
             }
         }
     );
-});
+};

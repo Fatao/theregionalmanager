@@ -59,6 +59,19 @@ p {
     color: #4e5054;
 }
 
+button {
+    margin-top: 1.5rem;
+    padding: 0.5rem 0;
+    width: 100%;
+    background-color: #dfe5f0;
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+}
+
 p + p {
     margin-top: 1.5rem;
 }
@@ -66,7 +79,7 @@ p + p {
 #cities {
     font-size: 1.6rem;
     color: #3669bc;
-    margin: 2rem 0;
+    margin: 1.5rem 0;
 }
 
 .flag {
