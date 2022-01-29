@@ -1,0 +1,60 @@
+/* Resets based on https://github.com/hankchizljaw/modern-css-reset */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+ul[role="list"],
+ol[role="list"] {
+    list-style: none;
+}
+
+html:focus-within {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+    font-family: monospace;
+    font-size: 1.2em;
+    padding: 2em;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+#cities {
+    margin: 2em;
+}
+
+#cities > div > div {
+    font-size: 2em;
+    letter-spacing: 1em;
+    margin: 0.5em 0;
+}

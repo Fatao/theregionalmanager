@@ -1,0 +1,135 @@
+{
+    "0": {
+        "category": "clear",
+        "symbol": "☀️"
+    },
+    "1": {
+        "category": "clear",
+        "modifier": "mainly",
+        "symbol": "🌤️"
+    },
+    "2": {
+        "category": "cloudy",
+        "modifier": "partly",
+        "symbol": "⛅"
+    },
+    "3": {
+        "category": "overcast",
+        "symbol": "☁️"
+    },
+    "45": {
+        "category": "fog",
+        "symbol": "🌫️"
+    },
+    "48": {
+        "category": "fog",
+        "modifier": "freezing",
+        "symbol": "🌫️"
+    },
+    "51": {
+        "category": "drizzle",
+        "modifier": "light",
+        "symbol": "🌧️"
+    },
+    "53": {
+        "category": "drizzle",
+        "modifier": "moderate",
+        "symbol": "🌧️"
+    },
+    "55": {
+        "category": "drizzle",
+        "modifier": "dense",
+        "symbol": "🌧️"
+    },
+    "56": {
+        "category": "freezing drizzle",
+        "modifier": "light",
+        "symbol": "🌧️"
+    },
+    "57": {
+        "category": "freezing drizzle",
+        "modifier": "dense",
+        "symbol": "🌧️"
+    },
+    "61": {
+        "category": "rain",
+        "modifier": "light",
+        "symbol": "🌧️"
+    },
+    "63": {
+        "category": "rain",
+        "modifier": "moderate",
+        "symbol": "🌧️"
+    },
+    "65": {
+        "category": "rain",
+        "modifier": "heavy",
+        "symbol": "🌧️"
+    },
+    "66": {
+        "category": "freezing rain",
+        "modifier": "light",
+        "symbol": "🌧️"
+    },
+    "67": {
+        "category": "freezing rain",
+        "modifier": "heavy",
+        "symbol": "🌧️"
+    },
+    "71": {
+        "category": "snow fall",
+        "modifier": "light",
+        "symbol": "❄️"
+    },
+    "73": {
+        "category": "snow fall",
+        "modifier": "moderate",
+        "symbol": "❄️"
+    },
+    "75": {
+        "category": "snow fall",
+        "modifier": "heavy",
+        "symbol": "❄️"
+    },
+    "77": {
+        "category": "snow grains",
+        "symbol": "❄️"
+    },
+    "80": {
+        "category": "rain showers",
+        "modifier": "light",
+        "symbol": "🌧️"
+    },
+    "81": {
+        "category": "rain showers",
+        "modifier": "moderate",
+        "symbol": "🌧️"
+    },
+    "82": {
+        "category": "rain showers",
+        "modifier": "heavy",
+        "symbol": "❄️"
+    },
+    "85": {
+        "category": "snow showers",
+        "modifier": "light",
+        "symbol": "❄️"
+    },
+    "86": {
+        "category": "snow showers",
+        "modifier": "heavy",
+        "symbol": "❄️"
+    },
+    "95": {
+        "category": "thunderstorm",
+        "symbol": "⛈️"
+    },
+    "96": {
+        "category": "thunderstorm with slight hail",
+        "symbol": "⛈️"
+    },
+    "99": {
+        "category": "thunderstorm with heavy hail",
+        "symbol": "⛈️"
+    }
+}
