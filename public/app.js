@@ -88,14 +88,26 @@ window.addEventListener("load", () => {
                 }
 
                 const cityDiv = document.createElement("div");
+
+                const flagSpan = document.createElement("span");
+                flagSpan.appendChild(document.createTextNode(flag));
+                flagSpan.classList.add("flag");
+                cityDiv.appendChild(flagSpan);
+
                 cityDiv.appendChild(
-                    document.createTextNode(
-                        `${flag} ${name}, ${adminName}, ${country}, ${dateTime}`
-                    )
+                    document.createTextNode(`${name}, ${country}`)
                 );
+
+                const timeDiv = document.createElement("div");
+                timeDiv.appendChild(document.createTextNode(dateTime));
+                timeDiv.classList.add("time");
+                cityDiv.appendChild(timeDiv);
+
                 const weatherDiv = document.createElement("div");
                 weatherDiv.appendChild(document.createTextNode(symbols));
+                weatherDiv.classList.add("weather");
                 cityDiv.appendChild(weatherDiv);
+
                 div.appendChild(cityDiv);
             }
         }

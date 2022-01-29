@@ -28,13 +28,18 @@ html:focus-within {
     scroll-behavior: smooth;
 }
 
+html {
+    font-size: 62.5%;
+}
+
 body {
     min-height: 100vh;
     text-rendering: optimizeSpeed;
     line-height: 1.5;
     font-family: monospace;
-    font-size: 1.2em;
-    padding: 2em;
+    font-size: 1.5rem;
+    padding: 3rem;
+    background-color: #edf3ff;
 }
 
 img {
@@ -49,12 +54,33 @@ select {
     font: inherit;
 }
 
-#cities {
-    margin: 2em;
+a,
+p {
+    color: #4e5054;
 }
 
-#cities > div > div {
-    font-size: 2em;
-    letter-spacing: 1em;
-    margin: 0.5em 0;
+p + p {
+    margin-top: 1.5rem;
+}
+
+#cities {
+    font-size: 1.6rem;
+    color: #3669bc;
+    margin: 2rem 0;
+}
+
+.flag {
+    font-size: 3rem;
+    margin-right: 1rem;
+    vertical-align: middle;
+}
+
+.time {
+    color: #4e5054;
+}
+
+.weather {
+    font-size: 3rem;
+    letter-spacing: 1rem;
+    margin: 0.5rem 0;
 }
