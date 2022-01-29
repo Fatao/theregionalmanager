@@ -1,5 +1,7 @@
 # Assistant (to the) Regional Manager
 
+[https://assistant.to.theregionalmanager.com/](https://assistant.to.theregionalmanager.com/)
+
 ## Stack
 
 -   [GitHub](https://github.com/ummcheng/theregionalmanager) for code hosting
