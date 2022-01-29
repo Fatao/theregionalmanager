@@ -55,20 +55,22 @@ select {
 }
 
 a,
+button,
 p {
     color: #4e5054;
 }
 
 button {
     margin-top: 1.5rem;
-    padding: 0.5rem 0;
+    padding: 1rem 0;
     width: 100%;
     background-color: #dfe5f0;
-    border-radius: 8px;
+    border-radius: 1rem;
+    outline: 0.1rem solid #6f7278;
+    font-size: 2rem;
     border-style: none;
     box-sizing: border-box;
     cursor: pointer;
-    outline: none;
     user-select: none;
 }
 
