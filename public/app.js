@@ -52,75 +52,71 @@ window.addEventListener("load", () => {
 const loadWeather = async () => {
     Promise.all([cities, countries, timezones, weatherCodes]).then(
         async ([cities, countries, timezones, weatherCodes]) => {
-            const element = document.getElementById("cities");
-            if (element) {
-                element.remove();
+            let citiesDiv = document.getElementById("cities");
+            if (citiesDiv) {
+                citiesDiv.remove();
             }
-
-            const div = document.createElement("div");
-            div.id = "cities";
-            app.appendChild(div);
+            citiesDiv = document.createElement("div");
+            citiesDiv.id = "cities";
+            app.appendChild(citiesDiv);
 
             for (let i = 0; i < CITIES; i++) {
                 const city = cities[Math.floor(Math.random() * cities.length)];
-                const [
-                    name,
-                    countryCode,
-                    adminName,
-                    longitude,
-                    latitude,
-                    timezoneIndex,
-                ] = city;
-                const country = countries[countryCode];
-                const flag = getFlagEmoji(countryCode);
-                const timezone = timezones[timezoneIndex];
-                const dateTime = new Date().toLocaleString(LOCALE, {
-                    timeZone: timezone,
-                    dateStyle: "short",
-                    timeStyle: "short",
-                });
-
-                const weather = await fetch(
-                    WEATHER_API_URL +
-                        "?" +
-                        new URLSearchParams({
-                            latitude,
-                            longitude,
-                            daily: "weathercode",
-                            timezone,
-                            past_days: "1",
-                        })
-                ).then((response) => response.json());
-
-                let symbols = "";
-                for (const key in weather["daily"]["weathercode"]) {
-                    const code = weather["daily"]["weathercode"][key];
-                    symbols += weatherCodes[code]["symbol"];
-                }
-
-                const cityDiv = document.createElement("div");
-
-                const flagSpan = document.createElement("span");
-                flagSpan.appendChild(document.createTextNode(flag));
-                flagSpan.classList.add("flag");
-                cityDiv.appendChild(flagSpan);
-
-                cityDiv.appendChild(
-                    document.createTextNode(`${name}, ${country}`)
-                );
-
-                const timeDiv = document.createElement("div");
-                timeDiv.appendChild(document.createTextNode(dateTime));
-                timeDiv.classList.add("time");
-                cityDiv.appendChild(timeDiv);
-
-                const weatherDiv = document.createElement("div");
-                weatherDiv.appendChild(document.createTextNode(symbols));
-                weatherDiv.classList.add("weather");
-                cityDiv.appendChild(weatherDiv);
-
-                div.appendChild(cityDiv);
+                addCity(city, countries, timezones, weatherCodes);
             }
         }
     );
+};
+
+const addCity = async (city, countries, timezones, weatherCodes) => {
+    let citiesDiv = document.getElementById("cities");
+    const [name, countryCode, adminName, longitude, latitude, timezoneIndex] =
+        city;
+    const country = countries[countryCode];
+    const flag = getFlagEmoji(countryCode);
+    const timezone = timezones[timezoneIndex];
+    const dateTime = new Date().toLocaleString(LOCALE, {
+        timeZone: timezone,
+        dateStyle: "short",
+        timeStyle: "short",
+    });
+
+    const weather = await fetch(
+        WEATHER_API_URL +
+            "?" +
+            new URLSearchParams({
+                latitude,
+                longitude,
+                daily: "weathercode",
+                timezone,
+                past_days: "1",
+            })
+    ).then((response) => response.json());
+
+    let symbols = "";
+    for (const key in weather["daily"]["weathercode"]) {
+        const code = weather["daily"]["weathercode"][key];
+        symbols += weatherCodes[code]["symbol"];
+    }
+
+    const cityDiv = document.createElement("div");
+
+    const flagSpan = document.createElement("span");
+    flagSpan.appendChild(document.createTextNode(flag));
+    flagSpan.classList.add("flag");
+    cityDiv.appendChild(flagSpan);
+
+    cityDiv.appendChild(document.createTextNode(`${name}, ${country}`));
+
+    const timeDiv = document.createElement("div");
+    timeDiv.appendChild(document.createTextNode(dateTime));
+    timeDiv.classList.add("time");
+    cityDiv.appendChild(timeDiv);
+
+    const weatherDiv = document.createElement("div");
+    weatherDiv.appendChild(document.createTextNode(symbols));
+    weatherDiv.classList.add("weather");
+    cityDiv.appendChild(weatherDiv);
+
+    citiesDiv.appendChild(cityDiv);
 };
