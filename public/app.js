@@ -1,5 +1,6 @@
 const CITIES = 5;
 const LOCALE = "en-US";
+const TEMPERATURE_UNIT = "fahrenheit";
 const WEATHER_API_URL = "https://api.open-meteo.com/v1/forecast";
 
 const cities = fetch("data/cities.json").then((response) => response.json());
@@ -22,28 +23,43 @@ const getFlagEmoji = (countryCode) => {
     );
 };
 
+const createNode = ({
+    tag = "div",
+    id = null,
+    className = null,
+    text = null,
+    parent = null,
+} = {}) => {
+    const node = document.createElement(tag);
+    if (id != null) {
+        node.id = id;
+    }
+    if (className != null) {
+        node.classList.add(className);
+    }
+    if (text != null) {
+        node.appendChild(document.createTextNode(text));
+    }
+    if (parent != null) {
+        parent.appendChild(node);
+    }
+    return node;
+};
+
 window.addEventListener("load", () => {
     const app = document.getElementById("app");
+    createNode({
+        tag: "p",
+        text: `Hello there! I am the Assistant (to the) Regional Manager.`,
+        parent: app,
+    });
+    createNode({
+        tag: "p",
+        text: `Here is a list of ${CITIES} random cities with their country, local time, and local weather forecast.`,
+        parent: app,
+    });
 
-    let p = document.createElement("p");
-    p.appendChild(
-        document.createTextNode(
-            `Hello there! I am the Assistant (to the) Regional Manager.`
-        )
-    );
-    app.appendChild(p);
-
-    p = document.createElement("p");
-    p.appendChild(
-        document.createTextNode(
-            `Here is a list of ${CITIES} random cities with their country, local time, and local weather forecast.`
-        )
-    );
-    app.appendChild(p);
-
-    let button = document.createElement("button");
-    button.appendChild(document.createTextNode(`♻️ Reload`));
-    app.appendChild(button);
+    let button = createNode({ tag: "button", text: `♻️ Reload`, parent: app });
     button.onclick = loadWeather;
 
     loadWeather();
@@ -56,9 +72,7 @@ const loadWeather = async () => {
             if (citiesDiv) {
                 citiesDiv.remove();
             }
-            citiesDiv = document.createElement("div");
-            citiesDiv.id = "cities";
-            app.appendChild(citiesDiv);
+            createNode({ tag: "div", id: "cities", parent: app });
 
             for (let i = 0; i < CITIES; i++) {
                 const city = cities[Math.floor(Math.random() * cities.length)];
@@ -81,42 +95,101 @@ const addCity = async (city, countries, timezones, weatherCodes) => {
         timeStyle: "short",
     });
 
-    const weather = await fetch(
+    const weatherData = await fetch(
         WEATHER_API_URL +
             "?" +
             new URLSearchParams({
                 latitude,
                 longitude,
-                daily: "weathercode",
                 timezone,
+                temperature_unit: TEMPERATURE_UNIT,
                 past_days: "1",
-            })
+            }) +
+            "&daily=weathercode,temperature_2m_max,temperature_2m_min"
     ).then((response) => response.json());
 
-    let symbols = "";
-    for (const key in weather["daily"]["weathercode"]) {
-        const code = weather["daily"]["weathercode"][key];
-        symbols += weatherCodes[code]["symbol"];
+    let weather = [];
+    for (let key in ["0", "1", "2"]) {
+        const code = weatherData["daily"]["weathercode"][key];
+        let date;
+        switch (key) {
+            case "0":
+                date = "yesterday";
+                break;
+            case "1":
+                date = "today";
+                break;
+            case "2":
+                date = "tomorrow";
+        }
+
+        const day = {
+            date,
+            symbol: weatherCodes[code]["symbol"],
+            description: weatherCodes[code]["modifier"]
+                ? `${weatherCodes[code]["modifier"]} ${weatherCodes[code]["category"]}`
+                : weatherCodes[code]["category"],
+            min: Math.round(weatherData["daily"]["temperature_2m_min"][key]),
+            max: Math.round(weatherData["daily"]["temperature_2m_max"][key]),
+        };
+        weather.push(day);
     }
 
-    const cityDiv = document.createElement("div");
+    const cityDiv = createNode({
+        tag: "div",
+        className: "city",
+        parent: citiesDiv,
+    });
+    const cityHeader = createNode({
+        tag: "div",
+        className: "cityHeader",
+        parent: cityDiv,
+    });
+    createNode({
+        tag: "span",
+        className: "flag",
+        text: flag,
+        parent: cityHeader,
+    });
+    createNode({
+        tag: "span",
+        className: "place",
+        text: `${name}, ${country}`,
+        parent: cityHeader,
+    });
+    createNode({
+        tag: "span",
+        className: "time",
+        text: dateTime,
+        parent: cityHeader,
+    });
 
-    const flagSpan = document.createElement("span");
-    flagSpan.appendChild(document.createTextNode(flag));
-    flagSpan.classList.add("flag");
-    cityDiv.appendChild(flagSpan);
-
-    cityDiv.appendChild(document.createTextNode(`${name}, ${country}`));
-
-    const timeDiv = document.createElement("div");
-    timeDiv.appendChild(document.createTextNode(dateTime));
-    timeDiv.classList.add("time");
-    cityDiv.appendChild(timeDiv);
-
-    const weatherDiv = document.createElement("div");
-    weatherDiv.appendChild(document.createTextNode(symbols));
-    weatherDiv.classList.add("weather");
-    cityDiv.appendChild(weatherDiv);
-
-    citiesDiv.appendChild(cityDiv);
+    const weatherDiv = createNode({
+        tag: "div",
+        className: "weather",
+        parent: cityDiv,
+    });
+    for (const day in weather) {
+        const dayDiv = createNode({ className: "day", parent: weatherDiv });
+        createNode({
+            text: `${weather[day]["date"]}`,
+            className: "relativeDay",
+            parent: dayDiv,
+        });
+        createNode({
+            text: `${weather[day]["symbol"]}`,
+            className: "symbol",
+            parent: dayDiv,
+        });
+        createNode({
+            className: "description",
+            text: `${weather[day]["description"]}`,
+            parent: dayDiv,
+        });
+        createNode({
+            className: "temperature",
+            text: `${weather[day]["min"]} 📈 ${weather[day]["max"]} °F`,
+            parent: dayDiv,
+        });
+    }
 };

@@ -79,23 +79,70 @@ p + p {
 }
 
 #cities {
+    display: flex;
+    flex-wrap: wrap;
     font-size: 1.6rem;
+    gap: 4rem;
     color: #3669bc;
-    margin: 1.5rem 0;
+    margin: 4rem 0;
+}
+
+.city {
+    background-color: #fff;
+    border: 0.5rem solid #e6ecf7;
+    border-radius: 0.5rem;
+    padding: 2rem;
+}
+
+.cityHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cityHeader span {
+    align-self: center;
 }
 
 .flag {
     font-size: 3rem;
     margin-right: 1rem;
-    vertical-align: middle;
+}
+
+.place {
+    font-size: 2rem;
+    margin-right: 1rem;
 }
 
 .time {
     color: #4e5054;
+    font-size: 1.5rem;
 }
 
 .weather {
-    font-size: 3rem;
-    letter-spacing: 1rem;
+    color: #4e5054;
+    display: flex;
+    margin: 1rem 0 0 0;
+    text-align: center;
+}
+
+.day + .day {
+    margin: 0 3rem;
+}
+
+.symbol {
+    font-size: 6rem;
     margin: 0.5rem 0;
+}
+
+.relativeDay {
+    font-size: 1.3rem;
+}
+
+.description {
+    font-size: 1.4rem;
+}
+
+.temperature {
+    font-size: 1.5rem;
+    margin-top: 1rem;
 }
